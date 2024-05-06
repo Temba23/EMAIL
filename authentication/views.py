@@ -9,9 +9,14 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 
 
+
 class RegisterUserAPIView(generics.CreateAPIView):
   permission_classes = [AllowAny]
   serializer_class = UserRegisterSerializer
+  
+  def perform_create(self, serializer):
+        user = serializer.save()
+        serializer.send_mail()
 
 
 from rest_framework_simplejwt.tokens import RefreshToken

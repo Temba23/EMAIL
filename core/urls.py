@@ -23,5 +23,6 @@ urlpatterns = [
     path('', include('authentication.urls')),
     path('accounts/', include('allauth.urls')),
     path('accounts/profile/', profile, name="profile"),
+    path('email/', include('email_app.urls'))
 
 ]

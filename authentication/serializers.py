@@ -2,6 +2,8 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
+from django.conf import settings
+from django.core.mail import send_mail
 
 class UserSerializer(serializers.ModelSerializer):
   class Meta:
@@ -42,3 +44,10 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+    
+    def send_mail(self):
+       subject = 'Welcome Onboard'
+       message = f'Hi {self.instance.username}, You have registered in EMAIL_APP.'
+       email_from = settings.EMAIL_HOST_USER
+       recipient_list = [self.instance.email,]
+       send_mail( subject, message, email_from, recipient_list)
