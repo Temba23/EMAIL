@@ -53,3 +53,6 @@ class UserDetailAPI(APIView):
         return Response(serializer.data)
     else:
        return Response("No Such User")
+    
+def profile(request):
+   return render(request, 'profile.html')
